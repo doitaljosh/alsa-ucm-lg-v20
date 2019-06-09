@@ -1,7 +1,7 @@
 ALSA Use-Case Configuration Files for the LG V20 Smartphone
 
 Place the folder called `msm8996-tasha-snd-card` into `/usr/share/alsa/ucm` to use the audio hardware found on the LG V20.
-This should work with chroots or native installs that have `alsa-utils` and `pulseaudio` installed.
+This should work with GNU/Linux chroots or native installs that have `alsa-utils` and `pulseaudio` installed.
 
 ## The following features are working with these files on the LG V20:
 
