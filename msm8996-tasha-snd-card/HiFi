@@ -1,0 +1,387 @@
+SectionVerb {
+
+	EnableSequence [
+		cdev "hw:0"
+
+		cset "name='SLIMBUS_0_RX Audio Mixer MultiMedia1' 1"
+		cset "name='MultiMedia1 Mixer SLIM_0_TX' 1"
+	]
+
+	DisableSequence [
+		cdev "hw:0"
+
+        cset "name='SLIMBUS_0_RX Audio Mixer MultiMedia1' 0"
+		cset "name='MultiMedia1 Mixer SLIM_0_TX' 0"
+	]
+
+	Value {
+		TQ "HiFi"
+		PlaybackPCM "plughw:0"
+		CapturePCM "plughw:0"
+	}
+
+}
+
+SectionDevice."Speaker" {
+	Comment "Internal Speaker"
+
+	ConflictingDevice [
+	"Earpiece"
+	"Headset"
+	]
+
+	EnableSequence [
+		cdev "hw:0"
+
+		cset "name='SLIM RX0 MUX' 6"
+		cset "name='SLIM_0_RX Format' S24_LE"
+		cset "name='SLIM_0_RX SampleRate' KHZ_192"
+		cset "name='SLIM_0_RX Channels' One"
+		cset "name='RX INT7_1 MIX1 INP0' RX0"
+		cset "name='RX7 Digital Volume' 100"
+		cset "name='SpkrLeft COMP Switch' on"
+		cset "name='SpkrLeft BOOST Switch' on"
+		cset "name='SpkrLeft VISENSE Switch' on"
+		cset "name='SpkrLeft SWR DAC_Port Switch' on"
+		cset "name='MultiMedia1 Mixer SLIM_0_TX' 1"
+		cset "name='SLIMBUS_0_RX Audio Mixer MultiMedia1' 1"
+	]
+
+	DisableSequence [
+		cdev "hw:0"
+
+        cset "name='SLIMBUS_0_RX Audio Mixer MultiMedia1' 0"
+        cset "name='MultiMedia1 Mixer SLIM_0_TX' 0"
+        cset "name='SLIM RX0 MUX' NONE"
+        cset "name='SLIM_0_RX Format' S24_LE"
+	cset "name='SLIM_0_RX SampleRate' KHZ_48"
+        cset "name='SLIM_0_RX Channels' Zero"
+        cset "name='RX INT7_1 MIX1 INP0' NONE"
+        cset "name='RX7 Digital Volume' 68"
+        cset "name='SpkrLeft COMP Switch' off"
+        cset "name='SpkrLeft BOOST Switch' off"
+        cset "name='SpkrLeft VISENSE Switch' off"
+        cset "name='SpkrLeft SWR DAC_Port Switch' off"
+	]
+
+	Value {
+		PlaybackChannels "2"
+	}
+
+}
+
+SectionDevice."Earpiece" {
+	Comment "Earpiece Speaker"
+	
+	ConflictingDevice [
+	"Speaker"
+	"Headset"
+	]
+	
+	EnableSequence [
+		cdev "hw:0"
+		
+		cset "name='SLIM RX0 MUX' AIF_MIX1_PB"
+		cset "name='SLIM_0_RX Channels' One"
+		cset "name='RX INT0_1 MIX1 INP0' RX0"
+		cset "name='RX INT0 DEM MUX' CLSH_DSM_OUT"
+		cset "name='EAR PA Gain' G_6_DB"
+		cset "name='SLIMBUS_0_RX Audio Mixer MultiMedia1' 1"
+	]
+	
+	DisableSequence [
+		cdev "hw:0"
+		
+		cset "name='SLIMBUS_0_RX Audio Mixer MultiMedia1' 0"
+		cset "name='SLIM RX0 MUX'ZERO"
+		cset "name='SLIM_0_RX Channels' Two"
+		cset "name='RX INT0_1 MIX1 INP0' ZERO"
+		cset "name='RX INT0 DEM MUX' ZERO"
+		cset "name='EAR PA Gain' ZERO"
+	]
+	
+	Value {
+		PlaybackChannels "2"
+	}
+}
+
+SectionDevice."Headset" {
+	Comment "Headset (non-HiFi)"
+	
+	ConflictingDevice [
+	"Speaker"
+	"Earpiece"
+	]
+	
+	EnableSequence [
+		cdev "hw:0"
+		
+		cset "name='SLIM RX0 MUX' AIF_MIX1_PB"
+		cset "name='SLIM RX1 MUX' AIF_MIX1_PB"
+		cset "name='SLIM_0_RX Channels' Two"
+		cset "name='SLIM_0_RX Format' S24_LE"
+		cset "name='SLIM_0_RX SampleRate' KHZ_192"
+		cset "name='RX INT1_2 MUX' RX0"
+		cset "name='RX INT2_2 MUX' RX1"
+		cset "name='RX INT1 DEM MUX' CLSH_DSM_OUT"
+		cset "name='RX INT2 DEM MUX' CLSH_DSM_OUT"
+		cset "name='COMP1 Switch' 1"
+		cset "name='COMP2 Switch' 1"
+		cset "name='HPHL Volume' 100"
+		cset "name='HPHR Volume' 100"
+		cset "name='RX0 Digital Volume' 84"
+		cset "name='RX1 Digital Volume' 84"
+		cset "name='Es9218 Bypass' 1"
+		cset "name='SLIMBUS_0_RX Audio Mixer MultiMedia1' 1"
+	]
+	
+	DisableSequence [
+		cdev "hw:0"
+		
+		cset "name='SLIMBUS_0_RX Audio Mixer MultiMedia1' 0"
+		cset "name='Es9218 Bypass' 0"
+		cset "name='SLIM RX0 MUX' ZERO"
+		cset "name='SLIM RX1 MUX' ZERO"
+		cset "name='SLIM_0_RX Channels' One"
+		cset "name='SLIM_0_RX Format' S24_LE"
+		cset "name='SLIM_0_RX SampleRate' KHZ_48"
+		cset "name='RX INT1_2 MUX' ZERO"
+		cset "name='RX INT2_2 MUX' ZERO"
+		cset "name='RX INT1 DEM MUX' ZERO"
+		cset "name='RX INT2 DEM MUX' ZERO"
+		cset "name='COMP1 Switch' 0"
+		cset "name='COMP2 Switch' 0"
+		cset "name='HPHL Volume' 0"
+		cset "name='HPHR Volume' 0"
+		cset "name='RX0 Digital Volume' 0"
+		cset "name='RX1 Digital Volume' 0"
+	]
+	
+	Value {
+		PlaybackChannels "2"
+	}
+}
+
+SectionDevice."Stereo Mics" {
+	Comment "Stereo Microphones"
+	
+	ConflictingDevice [
+	"Mic1"
+	"Mic2"
+	"Mic3"
+	"HeadsetMic"
+	]
+	
+	EnableSequence [
+		cdev "hw:0"
+		
+		cset "name='AIF1_CAP Mixer SLIM TX5' 1"
+		cset "name='AIF1_CAP Mixer SLIM TX6' 1"
+		cset "name='SLIM_0_TX Channels' Two"
+		cset "name='SLIM_0_TX Format' S24_LE"
+		cset "name='SLIM_0_TX SampleRate' KHZ_48"
+		cset "name='SLIM TX5 MUX' DEC5"
+		cset "name='ADC MUX5' DMIC"
+		cset "name='DMIC MUX5' DMIC2"
+		cset "name='SLIM TX6 MUX' DEC6"
+		cset "name='ADC MUX6' DMIC"
+		cset "name='DMIC MUX6' DMIC0"
+		cset "name='IIR0 INP0 MUX' DEC5"
+		cset "name='IIR0 INP1 MUX' DEC6"
+		cset "name='DEC5 Volume' 110"
+		cset "name='DEC6 Volume' 110"
+		cset "name='MultiMedia1 Mixer SLIM_0_TX' 1"
+	]
+	
+	DisableSequence [
+		cdev "hw:0"
+		
+		cset "name='MultiMedia1 Mixer SLIM_0_TX' 0"
+		cset "name='AIF1_CAP Mixer SLIM TX5' 0"
+		cset "name='AIF1_CAP Mixer SLIM TX6' 0"
+		cset "name='SLIM_0_TX Channels' One"
+		cset "name='SLIM_0_TX Format' S16_LE"
+		cset "name='SLIM_0_TX SampleRate' KHZ_48"
+		cset "name='SLIM TX5 MUX' ZERO"
+		cset "name='ADC MUX5' ZERO"
+		cset "name='DMIC MUX5' ZERO"
+		cset "name='SLIM TX6 MUX' ZERO"
+		cset "name='ADC MUX6' ZERO"
+		cset "name='DMIC MUX6' ZERO"
+		cset "name='IIR0 INP0 MUX' ZERO"
+                cset "name='IIR0 INP1 MUX' ZERO"
+		cset "name='DEC5 Volume' 0"
+		cset "name='DEC6 Volume' 0"
+	]
+	
+	Value {
+		CaptureChannels "2"
+	}
+}
+
+SectionDevice."Mic1" {
+	Comment "Top Microphone"
+	
+	ConflictingDevice [
+	"Stereo Mics"
+	"Mic2"
+	"Mic3"
+	"HeadsetMic"
+	]
+	
+	EnableSequence [
+		cdev "hw:0"
+		
+		cset "name='AIF1_CAP Mixer SLIM TX5' 1"
+		cset "name='SLIM_0_TX Channels' One"
+		cset "name='SLIM TX5 MUX' DEC5"
+		cset "name='ADC MUX5' DMIC"
+		cset "name='DMIC MUX5' DMIC2"
+		cset "name='IIR0 INP0 MUX' DEC5"
+		cset "name='DEC5 Volume' 110"
+		cset "name='MultiMedia1 Mixer SLIM_0_TX' 1"
+	]
+	
+	DisableSequence [
+		cdev "hw:0"
+		
+		cset "name='MultiMedia1 Mixer SLIM_0_TX' 0"
+		cset "name='AIF1_CAP Mixer SLIM TX5' 0"
+		cset "name='SLIM_0_TX Channels' One"
+		cset "name='SLIM TX5 MUX' ZERO"
+		cset "name='ADC MUX5' ZERO"
+		cset "name='DMIC MUX5' ZERO"
+		cset "name='IIR0 INP0 MUX' ZERO"
+		cset "name='DEC5 Volume' 0"
+	]
+	
+	Value {
+		CaptureChannels "2"
+	}
+}
+
+SectionDevice."Mic2" {
+	Comment "Bottom Microphone"
+	
+	ConflictingDevice [
+	"Stereo Mics"
+	"Mic1"
+	"Mic3"
+	"HeadsetMic"
+	]
+	
+	EnableSequence [
+		cdev "hw:0"
+		
+		cset "name='AIF1_CAP Mixer SLIM TX6' 1"
+		cset "name='SLIM_0_TX Channels' One"
+		cset "name='SLIM TX6 MUX' DEC6"
+		cset "name='ADC MUX6' DMIC"
+		cset "name='DMIC MUX6' DMIC0"
+		cset "name='IIR0 INP0 MUX' DEC6"
+		cset "name='DEC6 Volume' 110"
+		cset "name='MultiMedia1 Mixer SLIM_0_TX' 1"
+	]
+	
+	DisableSequence [
+		cdev "hw:0"
+		
+		cset "name='MultiMedia1 Mixer SLIM_0_TX' 0"
+		cset "name='AIF1_CAP Mixer SLIM TX6' 0"
+		cset "name='SLIM_0_TX Channels' One"
+		cset "name='SLIM TX6 MUX' ZERO"
+		cset "name='ADC MUX6' ZERO"
+		cset "name='DMIC MUX6' ZERO"
+		cset "name='IIR0 INP0 MUX' ZERO"
+		cset "name='DEC6 Volume' 0"
+	]
+	
+	Value {
+		CaptureChannels "2"
+	}
+}
+
+SectionDevice."Mic3" {
+        Comment "Front Microphone"
+
+        ConflictingDevice [
+        "Stereo Mics"
+	"Mic1"
+        "Mic2"
+	"HeadsetMic"
+        ]
+
+        EnableSequence [
+                cdev "hw:0"
+
+                cset "name='AIF1_CAP Mixer SLIM TX7' 1"
+                cset "name='SLIM_0_TX Channels' One"
+                cset "name='SLIM TX7 MUX' DEC7"
+                cset "name='ADC MUX7' DMIC"
+                cset "name='DMIC MUX7' DMIC4"
+                cset "name='IIR0 INP0 MUX' DEC7"
+                cset "name='DEC7 Volume' 110"
+                cset "name='MultiMedia1 Mixer SLIM_0_TX' 1"
+        ]
+
+        DisableSequence [
+                cdev "hw:0"
+
+                cset "name='MultiMedia1 Mixer SLIM_0_TX' 0"
+                cset "name='AIF1_CAP Mixer SLIM TX7' 0"
+                cset "name='SLIM_0_TX Channels' One"
+                cset "name='SLIM TX7 MUX' ZERO"
+                cset "name='ADC MUX7' ZERO"
+                cset "name='DMIC MUX7' ZERO"
+                cset "name='IIR0 INP0 MUX' ZERO"
+                cset "name='DEC7 Volume' 0"
+        ]
+
+        Value {
+                CaptureChannels "2"
+        }
+}
+
+SectionDevice."HeadsetMic" {
+	Comment "Headset Microphone"
+
+	ConflictingDevice [
+	"StereoMics"
+	"Mic1"
+	"Mic2"
+	"Mic3"
+	]
+
+	EnableSequence [
+		cdev "hw:0"
+
+		cset "name='AIF1_CAP Mixer SLIM TX0' 1"
+		cset "name='SLIM TX0 MUX' DEC0"
+		cset "name='ADC MUX0' AMIC"
+		cset "name='AMIC MUX0' ADC2"
+		cset "name='IIR0 INP0 MUX' DEC0"
+		cset "name='ADC2 Volume' 12"
+		cset "name='DEC0 Volume' 110"
+		cset "name='SLIM_0_TX Channels' One"
+		cset "name='MultiMedia1 Mixer SLIM_0_TX' 1"
+	]
+
+	DisableSequence [
+		cdev "hw:0"
+
+		cset "name='MultiMedia1 Mixer SLIM_0_TX' 0"
+		cset "name='SLIM_0_TX Channels' One"
+		cset "name='AIF1_CAP Mixer SLIM TX0' 0"
+                cset "name='SLIM TX0 MUX' ZERO"
+                cset "name='ADC MUX0' ZERO"
+                cset "name='AMIC MUX0' ZERO"
+                cset "name='IIR0 INP0 MUX' ZERO"
+                cset "name='ADC2 Volume' 0"
+                cset "name='DEC0 Volume' 0"
+	]
+
+	Value {
+		CaptureChannels "2"
+	}
+
+}
