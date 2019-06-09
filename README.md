@@ -16,7 +16,7 @@ This should work with GNU/Linux chroots or native installs that have `alsa-utils
 - Stereo Microphones (24 bit enabled)
 
 ## TODO:
-- Bring up HiFi DAC (Should be very easy. Was able to do so manually using `alsa cset` commands.)
+- ~~Bring up HiFi DAC~~ Working
 - Low latency playback
 - HDMI audio
 - Earpiece speaker
