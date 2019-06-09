@@ -2,16 +2,10 @@ SectionVerb {
 
 	EnableSequence [
 		cdev "hw:0"
-
-		cset "name='SLIMBUS_0_RX Audio Mixer MultiMedia1' 1"
-		cset "name='MultiMedia1 Mixer SLIM_0_TX' 1"
 	]
 
 	DisableSequence [
 		cdev "hw:0"
-
-        cset "name='SLIMBUS_0_RX Audio Mixer MultiMedia1' 0"
-		cset "name='MultiMedia1 Mixer SLIM_0_TX' 0"
 	]
 
 	Value {
@@ -28,6 +22,7 @@ SectionDevice."Speaker" {
 	ConflictingDevice [
 	"Earpiece"
 	"Headset"
+	"HeadsetHiFi"
 	]
 
 	EnableSequence [
@@ -50,18 +45,18 @@ SectionDevice."Speaker" {
 	DisableSequence [
 		cdev "hw:0"
 
-        cset "name='SLIMBUS_0_RX Audio Mixer MultiMedia1' 0"
-        cset "name='MultiMedia1 Mixer SLIM_0_TX' 0"
-        cset "name='SLIM RX0 MUX' NONE"
-        cset "name='SLIM_0_RX Format' S24_LE"
-	cset "name='SLIM_0_RX SampleRate' KHZ_48"
-        cset "name='SLIM_0_RX Channels' Zero"
-        cset "name='RX INT7_1 MIX1 INP0' NONE"
-        cset "name='RX7 Digital Volume' 68"
-        cset "name='SpkrLeft COMP Switch' off"
-        cset "name='SpkrLeft BOOST Switch' off"
-        cset "name='SpkrLeft VISENSE Switch' off"
-        cset "name='SpkrLeft SWR DAC_Port Switch' off"
+		cset "name='SLIMBUS_0_RX Audio Mixer MultiMedia1' 0"
+		cset "name='MultiMedia1 Mixer SLIM_0_TX' 0"
+		cset "name='SLIM RX0 MUX' NONE"
+		cset "name='SLIM_0_RX Format' S24_LE"
+		cset "name='SLIM_0_RX SampleRate' KHZ_48"
+		cset "name='SLIM_0_RX Channels' Zero"
+		cset "name='RX INT7_1 MIX1 INP0' NONE"
+		cset "name='RX7 Digital Volume' 68"
+		cset "name='SpkrLeft COMP Switch' off"
+		cset "name='SpkrLeft BOOST Switch' off"
+		cset "name='SpkrLeft VISENSE Switch' off"
+		cset "name='SpkrLeft SWR DAC_Port Switch' off"
 	]
 
 	Value {
@@ -76,6 +71,7 @@ SectionDevice."Earpiece" {
 	ConflictingDevice [
 	"Speaker"
 	"Headset"
+	"HeadsetHiFi"
 	]
 	
 	EnableSequence [
@@ -105,22 +101,21 @@ SectionDevice."Earpiece" {
 	}
 }
 
-SectionDevice."Headset" {
-	Comment "Headset (non-HiFi)"
+SectionDevice."HeadsetHiFi" {
+	Comment "Headset (HiFi)"
 	
 	ConflictingDevice [
 	"Speaker"
 	"Earpiece"
+	"Headset"
 	]
 	
 	EnableSequence [
 		cdev "hw:0"
 		
+		cset "name='SLIM_0_RX Channels' Two"
 		cset "name='SLIM RX0 MUX' AIF_MIX1_PB"
 		cset "name='SLIM RX1 MUX' AIF_MIX1_PB"
-		cset "name='SLIM_0_RX Channels' Two"
-		cset "name='SLIM_0_RX Format' S24_LE"
-		cset "name='SLIM_0_RX SampleRate' KHZ_192"
 		cset "name='RX INT1_2 MUX' RX0"
 		cset "name='RX INT2_2 MUX' RX1"
 		cset "name='RX INT1 DEM MUX' CLSH_DSM_OUT"
@@ -131,20 +126,23 @@ SectionDevice."Headset" {
 		cset "name='HPHR Volume' 100"
 		cset "name='RX0 Digital Volume' 84"
 		cset "name='RX1 Digital Volume' 84"
-		cset "name='Es9218 Bypass' 1"
-		cset "name='SLIMBUS_0_RX Audio Mixer MultiMedia1' 1"
+		cset "name='Es9218 Bypass' 0"
+		cset "name='Es9018 Chip State' 1"
+		cset "name='Es9018 State' 3"
+		cset "name='Es9018 Master Volume' 1"
+		cset "name='Es9018 AVC Volume' 7"
+		cset "name='Es9018 HEADSET TYPE' 2"
+		cset "name='SEC_MI2S_RX Audio Mixer MultiMedia1' 1"
 	]
 	
 	DisableSequence [
 		cdev "hw:0"
 		
-		cset "name='SLIMBUS_0_RX Audio Mixer MultiMedia1' 0"
-		cset "name='Es9218 Bypass' 0"
+		cset "name='SEC_MI2S_RX Audio Mixer MultiMedia1' 0"
+		cset "name='Es9218 Bypass' 1"
 		cset "name='SLIM RX0 MUX' ZERO"
 		cset "name='SLIM RX1 MUX' ZERO"
 		cset "name='SLIM_0_RX Channels' One"
-		cset "name='SLIM_0_RX Format' S24_LE"
-		cset "name='SLIM_0_RX SampleRate' KHZ_48"
 		cset "name='RX INT1_2 MUX' ZERO"
 		cset "name='RX INT2_2 MUX' ZERO"
 		cset "name='RX INT1 DEM MUX' ZERO"
@@ -155,11 +153,74 @@ SectionDevice."Headset" {
 		cset "name='HPHR Volume' 0"
 		cset "name='RX0 Digital Volume' 0"
 		cset "name='RX1 Digital Volume' 0"
+		cset "name='Es9018 Chip State' 0"
+                cset "name='Es9018 State' 0"
+                cset "name='Es9018 Master Volume' 0"
+                cset "name='Es9018 AVC Volume' 0"
+                cset "name='Es9018 HEADSET TYPE' 0"
 	]
 	
 	Value {
 		PlaybackChannels "2"
 	}
+}
+
+SectionDevice."Headset" {
+        Comment "Headset (non-HiFi)"
+
+        ConflictingDevice [
+        "Speaker"
+        "Earpiece"
+	"HeadsetHiFi"
+        ]
+
+        EnableSequence [
+                cdev "hw:0"
+
+                cset "name='SLIM RX0 MUX' AIF_MIX1_PB"
+                cset "name='SLIM RX1 MUX' AIF_MIX1_PB"
+                cset "name='SLIM_0_RX Channels' Two"
+                cset "name='SLIM_0_RX Format' S24_LE"
+                cset "name='SLIM_0_RX SampleRate' KHZ_192"
+                cset "name='RX INT1_2 MUX' RX0"
+                cset "name='RX INT2_2 MUX' RX1"
+                cset "name='RX INT1 DEM MUX' CLSH_DSM_OUT"
+                cset "name='RX INT2 DEM MUX' CLSH_DSM_OUT"
+                cset "name='COMP1 Switch' 1"
+                cset "name='COMP2 Switch' 1"
+                cset "name='HPHL Volume' 100"
+                cset "name='HPHR Volume' 100"
+                cset "name='RX0 Digital Volume' 84"
+                cset "name='RX1 Digital Volume' 84"
+                cset "name='Es9218 Bypass' 1"
+                cset "name='SLIMBUS_0_RX Audio Mixer MultiMedia1' 1"
+        ]
+
+        DisableSequence [
+                cdev "hw:0"
+
+                cset "name='SLIMBUS_0_RX Audio Mixer MultiMedia1' 0"
+                cset "name='Es9218 Bypass' 0"
+                cset "name='SLIM RX0 MUX' ZERO"
+                cset "name='SLIM RX1 MUX' ZERO"
+                cset "name='SLIM_0_RX Channels' One"
+                cset "name='SLIM_0_RX Format' S24_LE"
+                cset "name='SLIM_0_RX SampleRate' KHZ_48"
+                cset "name='RX INT1_2 MUX' ZERO"
+                cset "name='RX INT2_2 MUX' ZERO"
+                cset "name='RX INT1 DEM MUX' ZERO"
+                cset "name='RX INT2 DEM MUX' ZERO"
+                cset "name='COMP1 Switch' 0"
+                cset "name='COMP2 Switch' 0"
+                cset "name='HPHL Volume' 0"
+                cset "name='HPHR Volume' 0"
+                cset "name='RX0 Digital Volume' 0"
+                cset "name='RX1 Digital Volume' 0"
+        ]
+
+        Value {
+                PlaybackChannels "2"
+        }
 }
 
 SectionDevice."Stereo Mics" {
